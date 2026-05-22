@@ -5,24 +5,72 @@ To write a python program to implement multivariate linear regression and predic
 1.	Hardware – PCs
 2.	Anaconda – Python 3.7 Installation / Moodle-Code Runner
 ## Algorithm:
-### Step1
-<br>
+Step1:
+Import the required Python libraries.
 
-### Step2
-<br>
+Step2:
+Read and prepare the dataset for training.
 
-### Step3
-<br>
+Step3:
+Split the dataset into training and testing data.
 
-### Step4
-<br>
+Step4
+Train the Multivariate Linear Regression model using the training data.
 
-### Step5
-<br>
+Step5
+Predict the output using the test data and display the results.
 
 ## Program:
 ```
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn import linear_model,metrics
+from sklearn.datasets import fetch_california_housing
 
+#load the boston dataset
+boston=fetch_california_housing()
+
+#defining feature matrix(X) and response vector(y)
+X=boston.data
+y=boston.target
+
+#splitting X and y into training and testing sets
+from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.4,random_state=1)
+
+#create linear regression object
+reg=linear_model.LinearRegression()
+
+#train the model using the training sets
+reg.fit(X_train,y_train)
+
+#regression coefficients
+print("Coefficients:",reg.coef_)
+
+#variance score: 1 means perfect prediction
+print("Variance score: {}".format(reg.score(X_test,y_test)))
+
+#plot for residual error
+##setting plot style
+plt.style.use('fivethirtyeight')
+
+##plotting residual errors in training data
+plt.scatter(reg.predict(X_train),reg.predict(X_train)-y_train,color="green",s=10,label="Train data")
+
+##plotting residual errors in test data
+plt.scatter(reg.predict(X_test),reg.predict(X_test)-y_test,color="blue",s=10,label="Test data")
+
+##plotting line for zero residual error
+plt.hlines(y=0,xmin=0,xmax=50,linewidth=2)
+
+##plotting legend
+plt.legend(loc="upper right")
+
+##plot title
+plt.title("Residual errors")
+
+##method call for showing the plot
+plt.show()
 
 
 
@@ -30,6 +78,7 @@ To write a python program to implement multivariate linear regression and predic
 
 ```
 ## Output:
+<img width="859" height="583" alt="Screenshot 2026-05-22 093356" src="https://github.com/user-attachments/assets/db8e9f5e-c678-42e3-91d1-96c9d033bc7d" />
 
 ### Insert your output
 
